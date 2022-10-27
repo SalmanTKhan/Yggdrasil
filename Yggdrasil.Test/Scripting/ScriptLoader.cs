@@ -31,25 +31,22 @@ class TestScript1 : IScript
 			var tmpFilePath = Path.GetTempFileName() + ".cs";
 			File.WriteAllText(tmpFilePath, testScript);
 
-			Assert.DoesNotThrow(() =>
+			try
 			{
-				try
-				{
-					var loader = new ScriptLoader(new CSharpCodeProvider());
-					loader.LoadFromList(new[] { tmpFilePath });
+				var loader = new ScriptLoader(new CSharpCodeProvider());
+				loader.LoadFromList(new[] { tmpFilePath });
 
-					Console.WriteLine("LoadingExceptions");
-					foreach (var err in loader.LoadingExceptions)
-						Console.WriteLine(err);
-				}
-				catch (CompilerErrorException ex)
-				{
-					Console.WriteLine("CompilerErrorException");
-					foreach (var err in ex.Errors)
-						Console.WriteLine(err);
-					throw;
-				}
-			});
+				Console.WriteLine("LoadingExceptions");
+				foreach (var err in loader.LoadingExceptions)
+					Console.WriteLine(err);
+			}
+			catch (CompilerErrorException ex)
+			{
+				Console.WriteLine("CompilerErrorException");
+				foreach (var err in ex.Errors)
+					Console.WriteLine(err);
+				throw;
+			}
 
 			Assert.Equal(1, Test);
 
@@ -80,25 +77,22 @@ class TestScript2 : IScript, IFoobarer
 			var tmpFilePath = Path.GetTempFileName() + ".cs";
 			File.WriteAllText(tmpFilePath, testScript);
 
-			Assert.DoesNotThrow(() =>
+			try
 			{
-				try
-				{
-					var loader = new ScriptLoader(new CSharpCodeProvider());
-					loader.LoadFromList(new[] { tmpFilePath });
+				var loader = new ScriptLoader(new CSharpCodeProvider());
+				loader.LoadFromList(new[] { tmpFilePath });
 
-					Console.WriteLine("LoadingExceptions");
-					foreach (var err in loader.LoadingExceptions)
-						Console.WriteLine(err);
-				}
-				catch (CompilerErrorException ex)
-				{
-					Console.WriteLine("CompilerErrorException");
-					foreach (var err in ex.Errors)
-						Console.WriteLine(err);
-					throw;
-				}
-			});
+				Console.WriteLine("LoadingExceptions");
+				foreach (var err in loader.LoadingExceptions)
+					Console.WriteLine(err);
+			}
+			catch (CompilerErrorException ex)
+			{
+				Console.WriteLine("CompilerErrorException");
+				foreach (var err in ex.Errors)
+					Console.WriteLine(err);
+				throw;
+			}
 
 			var script = Scripts["TestScript2"] as IFoobarer;
 			Assert.NotNull(script);
@@ -119,26 +113,23 @@ class TestScript2 : IScript, IFoobarer
 			var tmpFilePath = Path.GetTempFileName() + ".cs";
 			File.WriteAllText(tmpFilePath, testScript);
 
-			Assert.DoesNotThrow(() =>
+			try
 			{
-				try
-				{
-					var loader = new ScriptLoader(new CSharpCodeProvider());
-					loader.AddPrecompiler(new TestPrecompiler());
-					loader.LoadFromList(new[] { tmpFilePath });
+				var loader = new ScriptLoader(new CSharpCodeProvider());
+				loader.AddPrecompiler(new TestPrecompiler());
+				loader.LoadFromList(new[] { tmpFilePath });
 
-					Console.WriteLine("LoadingExceptions");
-					foreach (var err in loader.LoadingExceptions)
-						Console.WriteLine(err);
-				}
-				catch (CompilerErrorException ex)
-				{
-					Console.WriteLine("CompilerErrorException");
-					foreach (var err in ex.Errors)
-						Console.WriteLine(err);
-					throw;
-				}
-			});
+				Console.WriteLine("LoadingExceptions");
+				foreach (var err in loader.LoadingExceptions)
+					Console.WriteLine(err);
+			}
+			catch (CompilerErrorException ex)
+			{
+				Console.WriteLine("CompilerErrorException");
+				foreach (var err in ex.Errors)
+					Console.WriteLine(err);
+				throw;
+			}
 
 			Assert.Equal(42, Test);
 

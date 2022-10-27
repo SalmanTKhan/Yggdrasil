@@ -52,8 +52,8 @@ namespace Yggdrasil.Test.Configuration
 			var path = GetTestFile();
 			var conf = new ConfFile();
 
-			Assert.DoesNotThrow(() => conf.Include(path));
-			Assert.DoesNotThrow(() => conf.Include("some_imaginary_file_that_doesnt exist.nope"));
+			conf.Include(path);
+			conf.Include("some_imaginary_file_that_doesnt exist.nope");
 		}
 
 		[Fact]
@@ -62,7 +62,7 @@ namespace Yggdrasil.Test.Configuration
 			var path = GetTestFile();
 			var conf = new ConfFile();
 
-			Assert.DoesNotThrow(() => conf.Require(path));
+			conf.Require(path);
 			Assert.Throws<FileNotFoundException>(() => conf.Require("some_imaginary_file_that_doesnt exist.nope"));
 		}
 
@@ -86,7 +86,7 @@ namespace Yggdrasil.Test.Configuration
 			Get(conf);
 		}
 
-		public void Get(ConfFile conf)
+		protected void Get(ConfFile conf)
 		{
 			Assert.Equal(10, conf.GetByte("test1"));
 			Assert.Equal(20, conf.GetByte("test1.1", 20));
@@ -97,10 +97,10 @@ namespace Yggdrasil.Test.Configuration
 			Assert.Equal(80, conf.GetLong("test4"));
 			Assert.Equal(160, conf.GetLong("test4.1", 160));
 
-			Assert.Equal(true, conf.GetBool("test5"));
-			Assert.Equal(false, conf.GetBool("test6"));
-			Assert.Equal(false, conf.GetBool("test6.1"));
-			Assert.Equal(true, conf.GetBool("test6.2", true));
+			Assert.True(conf.GetBool("test5"));
+			Assert.False(conf.GetBool("test6"));
+			Assert.False(conf.GetBool("test6.1"));
+			Assert.True(conf.GetBool("test6.2", true));
 
 			Assert.Equal(new DateTime(2010, 12, 28, 18, 58, 59), conf.GetDateTime("test7"));
 			Assert.Equal(DateTime.Now.Date, conf.GetDateTime("test7.1", DateTime.Now.Date));

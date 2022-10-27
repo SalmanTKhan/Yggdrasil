@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 using Yggdrasil.Logging;
 
@@ -110,14 +111,28 @@ namespace Yggdrasil.Util
 		}
 
 		/// <summary>
+		/// Check UID on (Mac/Linux)
+		/// </summary>
+		/// <returns></returns>
+		[DllImport("libc")]
+		public static extern uint getuid();
+
+		/// <summary>
 		/// Returns whether the application runs with admin rights.
 		/// </summary>
 		public static bool CheckAdmin()
 		{
-			var id = WindowsIdentity.GetCurrent();
-			var principal = new WindowsPrincipal(id);
-
-			return principal.IsInRole(WindowsBuiltInRole.Administrator);
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+			{
+				using (var identity = WindowsIdentity.GetCurrent())
+				{
+					var principal = new WindowsPrincipal(identity);
+					return principal.IsInRole(WindowsBuiltInRole.Administrator);
+				}
+			} else
+			{
+				return getuid() == 0;
+			}
 		}
 
 		/// <summary>

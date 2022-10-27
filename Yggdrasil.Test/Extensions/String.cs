@@ -16,15 +16,15 @@ namespace Yggdrasil.Test.Extensions
 		[Fact]
 		public void IsNullOrWhiteSpace()
 		{
-			Assert.Equal(true, ((string)null).IsNullOrWhiteSpace());
-			Assert.Equal(true, "".IsNullOrWhiteSpace());
-			Assert.Equal(true, " ".IsNullOrWhiteSpace());
-			Assert.Equal(true, "\t".IsNullOrWhiteSpace());
-			Assert.Equal(true, "\n".IsNullOrWhiteSpace());
-			Assert.Equal(true, "\r".IsNullOrWhiteSpace());
-			Assert.Equal(true, "    ".IsNullOrWhiteSpace());
-			Assert.Equal(false, "  a  ".IsNullOrWhiteSpace());
-			Assert.Equal(false, "abc".IsNullOrWhiteSpace());
+			Assert.True(((string)null).IsNullOrWhiteSpace());
+			Assert.True("".IsNullOrWhiteSpace());
+			Assert.True(" ".IsNullOrWhiteSpace());
+			Assert.True("\t".IsNullOrWhiteSpace());
+			Assert.True("\n".IsNullOrWhiteSpace());
+			Assert.True("\r".IsNullOrWhiteSpace());
+			Assert.True("    ".IsNullOrWhiteSpace());
+			Assert.False("  a  ".IsNullOrWhiteSpace());
+			Assert.False("abc".IsNullOrWhiteSpace());
 		}
 	}
 }
